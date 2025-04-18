@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>AI Image Generator</title> 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #imageResult {
+      margin-top: 30px;
+    }
+
+    #imageResult img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #fff;
+    }
+
+    #loadingText {
+      color: #FFD700;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style> 
+ </head> 
+ <body> 
+  <div class="container"> 
+   <h2>AI Image Generator</h2> 
+   <input type="text" id="prompt" placeholder="Describe the image you want..."> <button onclick="generateImage()">Generate Image</button> 
+   <div id="loadingText"></div> 
+   <div id="imageResult"></div> 
+  </div> 
+  <script>
+    function generateImage() {
+      const prompt = document.getElementById("prompt").value.trim();
+      const imageResult = document.getElementById("imageResult");
+      const loadingText = document.getElementById("loadingText");
+
+      if (!prompt) {
+        alert("Please enter a prompt.");
+        return;
+      }
+
+      const timestamp = new Date().getTime();
+      const imageUrl = `https://direct-img.rishuapi.workers.dev/?prompt=${encodeURIComponent(prompt)}&t=${timestamp}`;
+
+      loadingText.textContent = "Generating image... Please wait.";
+      imageResult.innerHTML = "";
+
+      setTimeout(() => {
+        const img = new Image();
+        img.src = imageUrl;
+        img.alt = "Generated AI Image";
+
+        img.onload = () => {
+          loadingText.textContent = "";
+          imageResult.appendChild(img);
+        };
+
+        img.onerror = () => {
+          loadingText.textContent = "❌ Failed to load image. Try again.";
+        };
+      }, 100);
+    }
+  </script> 
+ </body>
+  </html>
