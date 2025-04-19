@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Image Generator</title>
   <style>
     body {
@@ -142,6 +142,43 @@
 
           downloadBtn.href = img.src;
           downloadBtn.style.display = "inline-block";
+
+          // Telegram Button
+          const telegramBtn = document.createElement("a");
+          telegramBtn.href = "https://t.me/Trustedhacker079";
+          telegramBtn.target = "_blank";
+          telegramBtn.textContent = "✈️ Join Telegram Channel";
+          Object.assign(telegramBtn.style, {
+            display: "inline-block",
+            marginTop: "10px",
+            marginRight: "10px",
+            background: "#0088cc",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            textDecoration: "none"
+          });
+
+          // WhatsApp Share Button
+          const whatsappBtn = document.createElement("a");
+          const whatsappMessage = encodeURIComponent("Check out this AI-generated image: " + img.src);
+          whatsappBtn.href = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+          whatsappBtn.target = "_blank";
+          whatsappBtn.textContent = "Share on WhatsApp";
+          Object.assign(whatsappBtn.style, {
+            display: "inline-block",
+            marginTop: "10px",
+            background: "#25D366",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            textDecoration: "none"
+          });
+
+          imageResult.appendChild(telegramBtn);
+          imageResult.appendChild(whatsappBtn);
         };
 
         img.onerror = () => {
