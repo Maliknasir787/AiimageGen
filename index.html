@@ -177,78 +177,56 @@
       imageResult.innerHTML = "";
       downloadBtn.style.display = "none";
 
-      setTimeout(() => {
-        const img = new Image();
-        img.src = imageUrl;
-        img.alt = "Generated AI Image";
+      const img = new Image();
+      img.src = imageUrl;
+      img.alt = "Generated AI Image";
 
-        img.onload = () => {
-          console.log("Image loaded successfully");
-          spinner.style.display = "none";
-          loadingMessage.textContent = "";
-          imageResult.appendChild(img);
+      img.onload = () => {
+        console.log("Image loaded successfully");
 
-          // Convert image to base64
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0);
-          const base64Image = canvas.toDataURL("image/jpeg");
+        spinner.style.display = "none";
+        loadingMessage.textContent = "";
+        imageResult.appendChild(img);
 
-          // Handle Download functionality (save base64 image to server)
-          downloadBtn.href = base64Image; // Use base64 image for download
-          downloadBtn.style.display = "inline-block";
+        // Convert image to base64
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const base64Image = canvas.toDataURL("image/jpeg");
 
-          // Create WhatsApp button
-          const whatsappBtn = document.createElement("a");
-          const whatsappMessage = encodeURIComponent("Check out this AI-generated image: " + base64Image);
-          whatsappBtn.href = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
-          whatsappBtn.target = "_blank";
-          whatsappBtn.textContent = "📱 Share on WhatsApp";
-          whatsappBtn.classList.add("social-btn");
-          whatsappBtn.id = "whatsappBtn";
+        // Handle Download functionality (save base64 image to server)
+        downloadBtn.href = base64Image; // Use base64 image for download
+        downloadBtn.style.display = "inline-block";
 
-          // Create Telegram button
-          const telegramBtn = document.createElement("a");
-          telegramBtn.href = "https://t.me/Trustedhacker079";
-          telegramBtn.target = "_blank";
-          telegramBtn.textContent = "✈️ Join Telegram Channel";
-          telegramBtn.classList.add("social-btn");
-          telegramBtn.id = "telegramBtn";
+        // Create WhatsApp button
+        const whatsappBtn = document.createElement("a");
+        const whatsappMessage = encodeURIComponent("Check out this AI-generated image: " + base64Image);
+        whatsappBtn.href = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+        whatsappBtn.target = "_blank";
+        whatsappBtn.textContent = "📱 Share on WhatsApp";
+        whatsappBtn.classList.add("social-btn");
+        whatsappBtn.id = "whatsappBtn";
 
-          imageResult.appendChild(telegramBtn);
-          imageResult.appendChild(whatsappBtn);
+        // Create Telegram button
+        const telegramBtn = document.createElement("a");
+        telegramBtn.href = "https://t.me/Trustedhacker079";
+        telegramBtn.target = "_blank";
+        telegramBtn.textContent = "✈️ Join Telegram Channel";
+        telegramBtn.classList.add("social-btn");
+        telegramBtn.id = "telegramBtn";
 
-          console.log("Buttons created");
-        };
+        imageResult.appendChild(telegramBtn);
+        imageResult.appendChild(whatsappBtn);
 
-        img.onerror = () => {
-          spinner.style.display = "none";
-          loadingMessage.textContent = "❌ Failed to load image. Try again.";
-        };
-      }, 100);
+        console.log("Buttons created");
+      };
 
-      // Fallback for buttons if there's a delay
-      setTimeout(() => {
-        if (!imageResult.hasChildNodes()) {
-          console.log("Fallback: Creating buttons due to delay");
-          const fallbackTelegramBtn = document.createElement("a");
-          fallbackTelegramBtn.href = "https://t.me/Trustedhacker079";
-          fallbackTelegramBtn.target = "_blank";
-          fallbackTelegramBtn.textContent = "✈️ Join Telegram Channel";
-          fallbackTelegramBtn.classList.add("social-btn");
-
-          const fallbackWhatsappBtn = document.createElement("a");
-          fallbackWhatsappBtn.href = "https://api.whatsapp.com/send?text=Check%20out%20this%20AI%20generated%20image";
-          fallbackWhatsappBtn.target = "_blank";
-          fallbackWhatsappBtn.textContent = "📱 Share on WhatsApp";
-          fallbackWhatsappBtn.classList.add("social-btn");
-
-          imageResult.appendChild(fallbackTelegramBtn);
-          imageResult.appendChild(fallbackWhatsappBtn);
-        }
-      }, 5000); // 5 seconds timeout for fallback
+      img.onerror = () => {
+        spinner.style.display = "none";
+        loadingMessage.textContent = "❌ Failed to load image. Try again.";
+      };
     }
   </script> 
 </body> 
