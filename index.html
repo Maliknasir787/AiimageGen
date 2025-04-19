@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"> 
-<head> 
+ <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>AI Image Generator</title> 
@@ -117,45 +117,19 @@
     #downloadBtn:hover {
       background: #218838;
     }
-
-    .social-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      color: white;
-    }
-
-    #telegramBtn {
-      background: #0088cc;
-    }
-
-    #whatsappBtn {
-      background: #25D366;
-    }
-
-    .social-btn:hover {
-      opacity: 0.9;
-    }
   </style> 
-</head> 
-<body> 
+ </head> 
+ <body> 
   <div class="container"> 
-    <h2>AI Image Generator</h2> 
-    <input type="text" id="prompt" placeholder="Describe the image you want..."> 
-    <button onclick="generateImage()">Generate Image</button> 
-    <div id="loadingText"> 
-      <div id="spinner" class="typing-dots"> 
-        <span></span> <span></span> <span></span> 
-      </div> 
-      <div id="loadingMessage"></div> 
+   <h2>AI Image Generator</h2> 
+   <input type="text" id="prompt" placeholder="Describe the image you want..."> <button onclick="generateImage()">Generate Image</button> 
+   <div id="loadingText"> 
+    <div id="spinner" class="typing-dots"> <span></span> <span></span> <span></span> 
     </div> 
-    <div id="imageResult"></div> 
-    <a id="downloadBtn" href="#" download="generated-image.jpg">Download Image</a> 
+    <div id="loadingMessage"></div> 
+   </div> 
+   <div id="imageResult"></div> <a id="downloadBtn" href="#" download="generated-image.jpg">Download Image</a> 
   </div> 
-
   <script>
     function generateImage() {
       const prompt = document.getElementById("prompt").value.trim();
@@ -177,57 +151,61 @@
       imageResult.innerHTML = "";
       downloadBtn.style.display = "none";
 
-      const img = new Image();
-      img.src = imageUrl;
-      img.alt = "Generated AI Image";
+      setTimeout(() => {
+        const img = new Image();
+        img.src = imageUrl;
+        img.alt = "Generated AI Image";
 
-      img.onload = () => {
-        console.log("Image loaded successfully");
+        img.onload = () => {
+          spinner.style.display = "none";
+          loadingMessage.textContent = "";
+          imageResult.appendChild(img);
 
-        spinner.style.display = "none";
-        loadingMessage.textContent = "";
-        imageResult.appendChild(img);
+          downloadBtn.href = img.src;
+          downloadBtn.style.display = "inline-block";
 
-        // Convert image to base64
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        const base64Image = canvas.toDataURL("image/jpeg");
+          const telegramBtn = document.createElement("a");
+          telegramBtn.href = "https://t.me/Trustedhacker079";
+          telegramBtn.target = "_blank";
+          telegramBtn.textContent = "✈️ Join Telegram Channel";
+          Object.assign(telegramBtn.style, {
+            display: "inline-block",
+            marginTop: "10px",
+            marginRight: "10px",
+            background: "#0088cc",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            textDecoration: "none"
+          });
 
-        // Handle Download functionality (save base64 image to server)
-        downloadBtn.href = base64Image; // Use base64 image for download
-        downloadBtn.style.display = "inline-block";
+          const whatsappBtn = document.createElement("a");
+          const whatsappMessage = encodeURIComponent("Check out this AI-generated image: " + img.src);
+          whatsappBtn.href = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
+          whatsappBtn.target = "_blank";
+          whatsappBtn.textContent = "📱 Share on WhatsApp";
+          Object.assign(whatsappBtn.style, {
+            display: "inline-block",
+            marginTop: "10px",
+            background: "#25D366",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            textDecoration: "none"
+          });
 
-        // Create WhatsApp button
-        const whatsappBtn = document.createElement("a");
-        const whatsappMessage = encodeURIComponent("Check out this AI-generated image: " + base64Image);
-        whatsappBtn.href = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
-        whatsappBtn.target = "_blank";
-        whatsappBtn.textContent = "📱 Share on WhatsApp";
-        whatsappBtn.classList.add("social-btn");
-        whatsappBtn.id = "whatsappBtn";
+          imageResult.appendChild(telegramBtn);
+          imageResult.appendChild(whatsappBtn);
+        };
 
-        // Create Telegram button
-        const telegramBtn = document.createElement("a");
-        telegramBtn.href = "https://t.me/Trustedhacker079";
-        telegramBtn.target = "_blank";
-        telegramBtn.textContent = "✈️ Join Telegram Channel";
-        telegramBtn.classList.add("social-btn");
-        telegramBtn.id = "telegramBtn";
-
-        imageResult.appendChild(telegramBtn);
-        imageResult.appendChild(whatsappBtn);
-
-        console.log("Buttons created");
-      };
-
-      img.onerror = () => {
-        spinner.style.display = "none";
-        loadingMessage.textContent = "❌ Failed to load image. Try again.";
-      };
+        img.onerror = () => {
+          spinner.style.display = "none";
+          loadingMessage.textContent = "❌ Failed to load image. Try again.";
+        };
+      }, 100);
     }
   </script> 
-</body> 
+ </body>
 </html>
