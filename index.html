@@ -183,6 +183,7 @@
         img.alt = "Generated AI Image";
 
         img.onload = () => {
+          console.log("Image loaded successfully");
           spinner.style.display = "none";
           loadingMessage.textContent = "";
           imageResult.appendChild(img);
@@ -199,7 +200,7 @@
           downloadBtn.href = base64Image; // Use base64 image for download
           downloadBtn.style.display = "inline-block";
 
-          // Share Image on WhatsApp
+          // Create WhatsApp button
           const whatsappBtn = document.createElement("a");
           const whatsappMessage = encodeURIComponent("Check out this AI-generated image: " + base64Image);
           whatsappBtn.href = `https://api.whatsapp.com/send?text=${whatsappMessage}`;
@@ -208,7 +209,7 @@
           whatsappBtn.classList.add("social-btn");
           whatsappBtn.id = "whatsappBtn";
 
-          // Join Telegram Channel button
+          // Create Telegram button
           const telegramBtn = document.createElement("a");
           telegramBtn.href = "https://t.me/Trustedhacker079";
           telegramBtn.target = "_blank";
@@ -218,6 +219,8 @@
 
           imageResult.appendChild(telegramBtn);
           imageResult.appendChild(whatsappBtn);
+
+          console.log("Buttons created");
         };
 
         img.onerror = () => {
@@ -225,6 +228,27 @@
           loadingMessage.textContent = "❌ Failed to load image. Try again.";
         };
       }, 100);
+
+      // Fallback for buttons if there's a delay
+      setTimeout(() => {
+        if (!imageResult.hasChildNodes()) {
+          console.log("Fallback: Creating buttons due to delay");
+          const fallbackTelegramBtn = document.createElement("a");
+          fallbackTelegramBtn.href = "https://t.me/Trustedhacker079";
+          fallbackTelegramBtn.target = "_blank";
+          fallbackTelegramBtn.textContent = "✈️ Join Telegram Channel";
+          fallbackTelegramBtn.classList.add("social-btn");
+
+          const fallbackWhatsappBtn = document.createElement("a");
+          fallbackWhatsappBtn.href = "https://api.whatsapp.com/send?text=Check%20out%20this%20AI%20generated%20image";
+          fallbackWhatsappBtn.target = "_blank";
+          fallbackWhatsappBtn.textContent = "📱 Share on WhatsApp";
+          fallbackWhatsappBtn.classList.add("social-btn");
+
+          imageResult.appendChild(fallbackTelegramBtn);
+          imageResult.appendChild(fallbackWhatsappBtn);
+        }
+      }, 5000); // 5 seconds timeout for fallback
     }
   </script> 
 </body> 
