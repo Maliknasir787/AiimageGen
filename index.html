@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en"> 
- <head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>AI Image Generator</title> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Image Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
       background: rgba(255, 255, 255, 0.1);
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
     input {
@@ -55,27 +55,67 @@
       max-width: 100%;
       border-radius: 10px;
       box-shadow: 0 0 12px #fff;
+      margin-bottom: 15px;
     }
 
-    #loadingText {
+    .spinner {
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid #FFD700;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loadingMessage {
       color: #FFD700;
-      margin-top: 10px;
       font-weight: bold;
     }
-  </style> 
- </head> 
- <body> 
-  <div class="container"> 
-   <h2>AI Image Generator</h2> 
-   <input type="text" id="prompt" placeholder="Describe the image you want..."> <button onclick="generateImage()">Generate Image</button> 
-   <div id="loadingText"></div> 
-   <div id="imageResult"></div> 
-  </div> 
+
+    #downloadBtn {
+      display: none;
+      margin-top: 10px;
+      text-decoration: none;
+      background: #28a745;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    #downloadBtn:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>AI Image Generator</h2>
+    <input type="text" id="prompt" placeholder="Describe the image you want...">
+    <button onclick="generateImage()">Generate Image</button>
+    <div id="loadingText">
+      <div id="spinner" class="spinner"></div>
+      <div id="loadingMessage"></div>
+    </div>
+    <div id="imageResult"></div>
+    <a id="downloadBtn" href="#" download="generated-image.jpg">Download Image</a>
+  </div>
+
   <script>
     function generateImage() {
       const prompt = document.getElementById("prompt").value.trim();
       const imageResult = document.getElementById("imageResult");
-      const loadingText = document.getElementById("loadingText");
+      const spinner = document.getElementById("spinner");
+      const loadingMessage = document.getElementById("loadingMessage");
+      const downloadBtn = document.getElementById("downloadBtn");
 
       if (!prompt) {
         alert("Please enter a prompt.");
@@ -85,8 +125,10 @@
       const timestamp = new Date().getTime();
       const imageUrl = `https://direct-img.rishuapi.workers.dev/?prompt=${encodeURIComponent(prompt)}&t=${timestamp}`;
 
-      loadingText.textContent = "Generating image... Please wait.";
+      spinner.style.display = "block";
+      loadingMessage.textContent = "Generating image... Please wait.";
       imageResult.innerHTML = "";
+      downloadBtn.style.display = "none";
 
       setTimeout(() => {
         const img = new Image();
@@ -94,15 +136,20 @@
         img.alt = "Generated AI Image";
 
         img.onload = () => {
-          loadingText.textContent = "";
+          spinner.style.display = "none";
+          loadingMessage.textContent = "";
           imageResult.appendChild(img);
+
+          downloadBtn.href = img.src;
+          downloadBtn.style.display = "inline-block";
         };
 
         img.onerror = () => {
-          loadingText.textContent = "❌ Failed to load image. Try again.";
+          spinner.style.display = "none";
+          loadingMessage.textContent = "❌ Failed to load image. Try again.";
         };
       }, 100);
     }
-  </script> 
- </body>
-  </html>
+  </script>
+</body>
+</html>
