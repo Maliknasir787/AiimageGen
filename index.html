@@ -23,7 +23,7 @@
       min-height: 100vh;
       color: #fff;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       padding: 2rem;
     }
@@ -191,7 +191,6 @@
       z-index: -1;
     }
 
-    /* Popup styles */
     .popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -237,6 +236,24 @@
       color: #fff;
       margin-top: 0.5rem;
     }
+
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 1rem 0;
+    }
+
+    .footer a.creator {
+      color: #ff8e53;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer a.creator:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -258,9 +275,13 @@
   <div class="popup-overlay" id="popup">
     <div class="popup-box">
       <p>🚀 Join our Telegram channel for updates!</p>
-      <button class="popup-join" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">🚀 Join Telegram</button>
+      <button class="popup-join" onclick="window.open('https://t.me/TtustedHacker079', '_blank')">🚀 Join Telegram</button>
       <button class="popup-cancel" onclick="document.getElementById('popup').style.display='none'">❌ Cancel</button>
     </div>
+  </div>
+
+  <div class="footer"> 
+    <p>© 2025 Ai Image Generator | Developed By <a href="https://t.me/trustedhacker079" class="creator">Nasir Hacker</a></p> 
   </div>
 
   <script>
@@ -344,7 +365,6 @@
 
     createParticles();
 
-    // Show popup after 10 seconds
     setTimeout(() => {
       document.getElementById('popup').style.display = 'flex';
     }, 10000);
