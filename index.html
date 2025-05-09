@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Image Generator</title>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>AI Image Generator</title> 
   <style>
     :root {
       --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -82,6 +82,7 @@
 
     #prompt {
       width: 100%;
+      min-height: 120px;
       padding: 1.2rem;
       background: rgba(255,255,255,0.08);
       border: 2px solid rgba(255,255,255,0.1);
@@ -89,6 +90,8 @@
       color: #fff;
       font-size: 1rem;
       transition: all 0.3s ease;
+      resize: vertical;
+      line-height: 1.5;
     }
 
     #prompt:focus {
@@ -254,36 +257,28 @@
     .footer a.creator:hover {
       text-decoration: underline;
     }
-  </style>
-</head>
-<body>
-  <div class="particles" id="particles"></div>
-  <div class="container">
-    <h1>AI Image Generator</h1>
-    <p class="subtitle">Transform text into stunning visual art with AI</p>
-    <div class="input-group">
-      <input type="text" id="prompt" placeholder="Describe your vision...">
-    </div>
-    <button id="generateBtn" onclick="generateImage()">
-      <span id="btnText">Generate Masterpiece</span>
-      <div class="loader"><div class="spinner"></div></div>
-    </button>
-    <div id="imageResult"></div>
-  </div>
-
-  <!-- Telegram Popup -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup-box">
-      <p>🚀 Join our Telegram channel for updates!</p>
-      <button class="popup-join" onclick="window.open('https://t.me/TrustedHacker079', '_blank')">🚀 Join Telegram</button>
-      <button class="popup-cancel" onclick="document.getElementById('popup').style.display='none'">❌ Cancel</button>
-    </div>
-  </div>
-
+  </style> 
+ </head> 
+ <body> 
+  <div class="particles" id="particles"></div> 
+  <div class="container"> 
+   <h1>AI Image Generator</h1> 
+   <p class="subtitle">Transform text into stunning visual art with AI</p> 
+   <div class="input-group"> <textarea id="prompt" placeholder="Describe your vision..."></textarea> 
+   </div> <button id="generateBtn" onclick="generateImage()"> <span id="btnText">Generate Masterpiece</span> 
+    <div class="loader"> 
+     <div class="spinner"></div> 
+    </div> </button> 
+   <div id="imageResult"></div> 
+  </div> <!-- Telegram Popup --> 
+  <div class="popup-overlay" id="popup"> 
+   <div class="popup-box"> 
+    <p>🚀 Join our Telegram channel for updates!</p> <button class="popup-join" onclick="window.open('https://t.me/TtustedHacker079', '_blank')">🚀 Join Telegram</button> <button class="popup-cancel" onclick="document.getElementById('popup').style.display='none'">❌ Cancel</button> 
+   </div> 
+  </div> 
   <div class="footer"> 
-    <p>© 2025 Ai Image Generator | Developed By <a href="https://t.me/Trustedhacker079" class="creator">Nasir Hacker</a></p> 
-  </div>
-
+   <p>© 2025 AI Image Generator | Developed By <a href="https://t.me/trustedhacker079" class="creator">Nasir Hacker</a></p> 
+  </div> 
   <script>
     function generateImage() {
       const prompt = document.getElementById("prompt").value.trim();
@@ -368,6 +363,6 @@
     setTimeout(() => {
       document.getElementById('popup').style.display = 'flex';
     }, 10000);
-  </script>
-</body>
-</html>
+  </script> 
+ </body>
+                                                                                                                                                                           </html>
